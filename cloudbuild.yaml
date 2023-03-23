@@ -1,0 +1,12 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: bash
+  args:
+  - '-c'
+  - |
+    if docker pull us-west2-docker.pkg.dev/${PROJECT_ID}/qs-docker-image/express-image; then
+      echo "Image already exists, skipping build and push"
+    else
+      docker build -t us-west2-docker.pkg.dev/${PROJECT_ID}/qs-docker-image/express-image .
+      docker push us-west2-docker.pkg.dev/${PROJECT_ID}/qs-docker-image/express-image
+    fi
